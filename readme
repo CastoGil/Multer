@@ -2,7 +2,7 @@ Se Modifico el modelo de User para que cuente con una nueva propiedad “documen
 name: String (Nombre del documento).
 reference: String (link al documento).
 Además,se agrego una propiedad al usuario llamada “last_connection”, la cual deberá modificarse cada vez que el usuario realice un proceso de login y logout. 
-Se Creo un endpoint en el router de usuarios con su respectiva vista /auth/users/:uid/documents con el método POST que permita subir uno o múltiples archivos. Se Utilizo el middleware de Multer para poder recibir los documentos que se carguen (profileImage, productImage, identification, addressProof, accountProof) y actualizar en el document del usuario su status para hacer saber que ya subió algún documento en particular y mostrarlo.
+Se Creo un endpoint en el router de usuarios con su respectiva vista /auth/users/:uid/documents con el método POST que permita subir uno o múltiples archivos. Se Utilizo el middleware de Multer para poder recibir los documentos que se carguen (profileImage, identification, addressProof, accountProof) y actualizar en el document del usuario su status para hacer saber que ya subió algún documento en particular y mostrarlo.
 El middleware de multer esta modificado para que pueda guardar en diferentes carpetas y si no las crea dependiendo de los diferentes archivos que se suban.
 Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
 Se creo la vista y se modifico el endpoint /auth/users/premium/:uid para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
