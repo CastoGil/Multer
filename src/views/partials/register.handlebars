@@ -1,0 +1,62 @@
+<nav class="navbar navbar-dark bg-body-tertiary bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand mx-auto"><i class="fa-solid fa-store"></i> TIENDA DE ROPA </a>
+    {{#if token}}
+    <div>
+      <p class="roleUser card-text"><i class="fa-solid fa-user"></i> {{ role }} </p>
+    </div>
+    <p class="login card-text">Bienvenido {{ first_name }}</p>
+    <form action="/auth/logout" method="GET">
+      <button class="btn btn-success" type="submit"> Sign Out <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i></button>
+    </form>
+    {{else}}
+      {{#if admin}}
+      <div>
+        <p class="login card-text"><i class="fa-solid fa-user"></i> {{ admin }} </p>
+      </div>
+      <form action="/auth/logout" method="GET">
+        <button class="btn btn-success" type="submit"> Sign Out <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i></button>
+      </form>
+      {{else}}
+        <form action="/auth/login" method="GET">
+          <button class="btn btn-success" type="submit"><i class="fa-solid fa-user"></i></button>
+        </form>
+      {{/if}}
+    {{/if}}
+    <div>
+      <button class="btn btn-outline-danger cart" type="submit"><i class="fa-solid fa-cart-shopping"></i></button> 
+    </div>
+  </div>
+</nav>
+ <div class="container">
+  <h2 class="title bg-secondary">Register</h2>
+  {{#if error}}
+  <div class="alert alert-danger">{{error}}</div>
+  {{/if}}
+  <form method="POST" class="login" action="/auth/register">
+    <div class="form-group">
+      <label for="first_name">Name:</label>
+      <input type="text" id="first_name" name="first_name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="last_name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Register</button>
+  </form>
+  <p class="login">Already have an account? <a href="/auth/login">Login</a></p>
+</div>
+<script src="https://kit.fontawesome.com/48d346ada8.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/style.css" />

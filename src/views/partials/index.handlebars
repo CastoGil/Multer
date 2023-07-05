@@ -1,0 +1,56 @@
+<nav class="navbar navbar-dark bg-body-tertiary bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand mx-auto"><i class="fa-solid fa-store"></i> TIENDA DE ROPA </a>
+    {{#if token}}
+    <div>
+      <p class="roleUser card-text"><i class="fa-solid fa-user"></i> {{ role }} </p>
+    </div>
+    <p class="login card-text">Bienvenido {{ first_name }}</p>
+    <form action="/auth/logout" method="GET">
+      <button class="btn btn-success" type="submit"> Sign Out <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i></button>
+    </form>
+    {{else}}
+      {{#if admin}}
+      <div>
+        <p class="login card-text"><i class="fa-solid fa-user"></i> {{ admin }} </p>
+      </div>
+      <form action="/auth/logout" method="GET">
+        <button class="btn btn-success" type="submit"> Sign Out <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i></button>
+      </form>
+      {{else}}
+        <form action="/auth/login" method="GET">
+          <button class="btn btn-success" type="submit"><i class="fa-solid fa-user"></i></button>
+        </form>
+      {{/if}}
+    {{/if}}
+    <div>
+      <button class="btn btn-outline-danger cart" type="submit"><i class="fa-solid fa-cart-shopping"></i></button> 
+    </div>
+  </div>
+</nav>
+<style>
+    .table td, .table th {
+        vertical-align: middle;
+    }
+    h1 {
+        color: blue;
+    }
+    hr {
+        background-color: #ddd;
+    }
+    .jumbotron {
+        min-height: 100vh;
+    }
+</style>
+
+<div class="jumbotron">
+    <h1>Vista de Productos</h1>
+    <br>
+
+    <div class="table-responsive">
+        <table id='myTable' class="table table-dark">
+                <th>ID</th><th>Title</th><th>Description</th><th>Price</th><th>Thumbnail</th><th>Code</th><th>Stock</th><th>Category</th>
+        </table>
+        
+    </div>
+</div>

@@ -1,0 +1,28 @@
+
+  <h1>Cambiar Rol de Usuario</h1>
+
+  {{#if error}}
+    <div class="error">{{error}}</div>
+  {{else}}
+    {{#if success}}
+      <div class="success"><p>El rol del usuario ha sido cambiado a {{userDto.role}}</p></div>
+    {{/if}}
+    {{#if missingDocuments.length}}
+      <div class="missing-documents">
+        <p>El usuario no ha terminado de procesar su documentación.</p>
+        <p>Por favor, cargue los siguientes documentos:</p>
+        <ul>
+          {{#each missingDocuments}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+    <form action="/auth/users/premium/{{uid}}" method="POST">
+      <button class="changeRole" type="submit">Cambiar a Premium</button>
+    </form>
+  {{/if}}
+<script src="https://kit.fontawesome.com/48d346ada8.js" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="/style.css" />
+
+

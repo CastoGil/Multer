@@ -1,0 +1,199 @@
+openapi: 3.0.1
+info:
+  title: Ejemplo de Documentación Swagger
+  version: 1.0.0
+paths:
+  /api/carts:
+    post:
+      summary: Crear un nuevo carrito
+      tags:
+        - Cart
+      responses:
+        '201':
+          description: Carrito creado correctamente
+        '500':
+          description: Error interno del servidor
+
+  /api/carts/{cid}:
+    get:
+      summary: Obtener un carrito por su ID
+      tags:
+        - Cart
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito por Id
+        '500':
+          description: Error interno del servidor
+
+    delete:
+      summary: Eliminar todo los productos del carrito por su ID
+      tags:
+        - Cart
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito eliminado correctamente
+        '500':
+          description: Error interno del servidor
+    put:
+      summary: Actualizar carrito
+      tags:
+        - Cart
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartUpdate'
+      responses:
+        '200':
+          description: Carrito actualizado correctamente
+        '500':
+          description: Error interno del servidor        
+  /api/carts/{cid}/products/{pid}:
+    post:
+      summary: Agregar un producto a un carrito
+      tags:
+        - Cart
+      security:
+        - adminAuth: []
+        - userAuth: []
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto agregado correctamente al carrito
+        '500':
+          description: Error interno del servidor
+
+    delete:
+      summary: Eliminar un producto de un carrito
+      tags:
+        - Cart
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto eliminado correctamente del carrito
+        '500':
+          description: Error interno del servidor
+
+    put:
+      summary: Actualizar cantidad de producto en el carrito
+      tags:
+        - Cart
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartUpdateProductQuantityInCart'
+      responses:
+        '200':
+          description: Carrito actualizado correctamente
+        '500':
+          description: Error interno del servidor
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Comprar carrito
+      tags:
+        - Cart
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito comprado correctamente
+        '401':
+          description: No estás autorizado para realizar la compra
+
+components:
+  schemas:
+    CartUpdateProductQuantityInCart:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Cantidad del producto en el carrito
+    CartUpdate:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: ID del producto
+              quantity:
+                type: number
+                description: Cantidad del producto en el carrito      
+  securitySchemes:
+    adminAuth:
+      type: apiKey
+      in: cookie
+      name: role
+    userAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,55 @@
+  <nav class="navbar navbar-dark bg-body-tertiary bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand mx-auto"><i class="fa-solid fa-store"></i> TIENDA DE ROPA </a>
+    {{#if token}}
+    <div>
+      <p class="roleUser card-text"><i class="fa-solid fa-user"></i> {{ role }} </p>
+    </div>
+    <p class="login card-text">Bienvenido {{ first_name }}</p>
+    <form action="/auth/logout" method="GET">
+      <button class="btn btn-success" type="submit"> Sign Out <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i></button>
+    </form>
+    {{else}}
+      {{#if admin}}
+      <div>
+        <p class="login card-text"><i class="fa-solid fa-user"></i> {{ admin }} </p>
+      </div>
+      <form action="/auth/logout" method="GET">
+        <button class="btn btn-success" type="submit"> Sign Out <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i></button>
+      </form>
+      {{else}}
+        <form action="/auth/login" method="GET">
+          <button class="btn btn-success" type="submit"><i class="fa-solid fa-user"></i></button>
+        </form>
+      {{/if}}
+    {{/if}}
+    <div>
+      <button class="btn btn-outline-danger cart" type="submit"><i class="fa-solid fa-cart-shopping"></i></button> 
+    </div>
+  </div>
+</nav>
+
+ <h1 class="cart">Carrito <i class="fa-solid fa-cart-shopping"></i> </h1>
+ <h2 class="cart">Lista de productos: </h2>
+ <ul class="block">
+{{#each cart.products}}
+ <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{this._id.thumbnail}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{this._id.title}}</h5>
+        <p class="card-text">Cantidad: {{this.quantity}}</p>
+        <p class="card-text"><small class="text-muted">Price: ${{this._id.price}}</small></p>
+        <button class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}
+</ul>
+<script src="/product.js"></script>
+ <link rel="stylesheet" href="/style.css" />
+ <script src="https://kit.fontawesome.com/48d346ada8.js" crossorigin="anonymous"></script>

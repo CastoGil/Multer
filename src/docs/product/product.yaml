@@ -1,0 +1,140 @@
+openapi: 3.0.1
+info:
+  title: Ejemplo de Documentación Swagger
+  version: 1.0.0
+paths:
+  /api/products:
+    get:
+      summary: Obtener todos los productos
+      tags:
+        - Products
+      security:
+        - adminAuth: []
+      responses:
+        '200':
+          description: Los productos se obtuvieron correctamente y se muestran en formato HTML
+        '500':
+          description: Error interno del servidor
+    post:
+      summary: Crear un nuevo producto
+      tags:
+        - Products
+      security:
+        - adminAuth: []
+        - userAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Producto Creado
+        '500':
+          description: Error interno del servidor
+  /api/products/{pid}:
+    get:
+      summary: Obtener un producto por su ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto por Id
+        '500':
+          description: Error interno del servidor
+    put:
+      summary: Actualizar un producto por su ID
+      tags:
+        - Products
+      security:
+        - adminAuth: []
+        - userAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      parameters:
+        - in: path
+          name: pid
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Producto Actualizado
+        '500':
+          description: Error interno del servidor
+    delete:
+      summary: Eliminar un producto por su ID
+      tags:
+        - Products
+      security:
+        - adminAuth: []
+        - userAuth: []
+      parameters:
+        - in: path
+          name: pid
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto Eliminado
+        '500':
+          description: Error interno del servidor
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción del producto
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: string
+          description: URL de la imagen del producto
+        code:
+          type: string
+          description: Código del producto
+        stock:
+          type: number
+          description: Cantidad en stock del producto
+        category:
+          type: string
+          description: Categoría del producto
+      example:
+        title: Pantalon
+        description: De tela sintetica
+        price: 300
+        thumbnail: https://img.lojasrenner.com.br/item/675053311/large/4.jpg
+        code: Pthams232
+        stock: 52
+        category: ropa   
+  securitySchemes:
+    adminAuth:
+      type: apiKey
+      in: cookie
+      name: role
+    userAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  

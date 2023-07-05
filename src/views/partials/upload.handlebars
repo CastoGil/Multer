@@ -1,0 +1,16 @@
+<h1 class="titleDocument">Cargar documentos</h1>
+  <form action="/auth/users/{{uid}}/documents" method="POST" enctype="multipart/form-data" class="formDocument">
+    <label for="profileImage" class="labelImg">Imagen de perfil:</label>
+    <input type="file" name="profileImage" accept="image/*" class="input-file"><br>
+    <p class="login-msg">Si deseas obtener mas beneficios deberas cargar la siguiente documentacion: </p>
+    <label for="identification" class="label">Documento de identificación:</label>
+    <input type="file" name="identification" class="input-file"><br>
+    <label for="addressProof" class="label">Comprobante de domicilio:</label>
+    <input type="file" name="addressProof" class="input-file"><br>
+    <label for="accountProof" class="label">Comprobante de estado de cuenta:</label>
+    <input type="file" name="accountProof" class="input-file"><br>
+    <button class="btnDocument" type="submit">Cargar documentos</button>
+  </form>
+  <script src="https://kit.fontawesome.com/48d346ada8.js" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="/style.css" />
+
